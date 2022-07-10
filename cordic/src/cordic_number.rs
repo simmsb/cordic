@@ -1,6 +1,4 @@
-use fixed::types::extra::{
-    IsLessOrEqual, True, Unsigned, U13, U14, U16, U29, U30, U32, U5, U6, U61, U62, U64, U8,
-};
+use fixed::types::extra::{ If, True };
 use fixed::types::U0F64;
 use fixed::{FixedI16, FixedI32, FixedI64, FixedI8};
 use core::ops::{Add, AddAssign, Div, Mul, Neg, Shl, Shr, Sub, SubAssign};
@@ -36,17 +34,15 @@ pub trait CordicNumber:
     fn num_bits() -> u8;
 }
 
-// The IsLessOrEqual constraints are for (in order):
+// The generic constraints are for (in order):
 // - The Fixed type
 // - The FRAC_PI_2 constant.
 // - The PI constant.
-impl<Fract> CordicNumber for FixedI8<Fract>
-where
-    Fract: 'static
-        + Unsigned
-        + IsLessOrEqual<U8, Output = True>
-        + IsLessOrEqual<U6, Output = True>
-        + IsLessOrEqual<U5, Output = True>,
+impl<const FRAC: i32> CordicNumber for FixedI8<FRAC>
+    where 
+        If<{ (0 <= FRAC) & (FRAC <= 8) }>: True,
+        If<{ (0 <= FRAC) & (FRAC <= 6) }>: True,
+        If<{ (0 <= FRAC) & (FRAC <= 5) }>: True
 {
     #[inline(always)]
     fn floor(self) -> Self {
@@ -85,7 +81,7 @@ where
 
     #[inline(always)]
     fn num_fract_bits() -> u8 {
-        Fract::to_u8()
+        FRAC as u8
     }
 
     #[inline(always)]
@@ -94,13 +90,11 @@ where
     }
 }
 
-impl<Fract> CordicNumber for FixedI32<Fract>
-where
-    Fract: 'static
-        + Unsigned
-        + IsLessOrEqual<U32, Output = True>
-        + IsLessOrEqual<U30, Output = True>
-        + IsLessOrEqual<U29, Output = True>,
+impl<const FRAC: i32> CordicNumber for FixedI32<FRAC>
+    where 
+        If<{ (0 <= FRAC) & (FRAC <= 32) }>: True,
+        If<{ (0 <= FRAC) & (FRAC <= 30) }>: True,
+        If<{ (0 <= FRAC) & (FRAC <= 29) }>: True
 {
     #[inline(always)]
     fn floor(self) -> Self {
@@ -139,7 +133,7 @@ where
 
     #[inline(always)]
     fn num_fract_bits() -> u8 {
-        Fract::to_u8()
+        FRAC as u8
     }
 
     #[inline(always)]
@@ -148,13 +142,12 @@ where
     }
 }
 
-impl<Fract> CordicNumber for FixedI16<Fract>
-where
-    Fract: 'static
-        + Unsigned
-        + IsLessOrEqual<U16, Output = True>
-        + IsLessOrEqual<U14, Output = True>
-        + IsLessOrEqual<U13, Output = True>,
+// IsLessOrEqual constraints were removed as bounding const generics is not possible
+impl<const FRAC: i32> CordicNumber for FixedI16<FRAC>
+    where 
+        If<{ (0 <= FRAC) & (FRAC <= 16) }>: True,
+        If<{ (0 <= FRAC) & (FRAC <= 14) }>: True,
+        If<{ (0 <= FRAC) & (FRAC <= 13) }>: True
 {
     #[inline(always)]
     fn floor(self) -> Self {
@@ -193,7 +186,7 @@ where
 
     #[inline(always)]
     fn num_fract_bits() -> u8 {
-        Fract::to_u8()
+        FRAC as u8
     }
 
     #[inline(always)]
@@ -202,13 +195,12 @@ where
     }
 }
 
-impl<Fract> CordicNumber for FixedI64<Fract>
-where
-    Fract: 'static
-        + Unsigned
-        + IsLessOrEqual<U64, Output = True>
-        + IsLessOrEqual<U62, Output = True>
-        + IsLessOrEqual<U61, Output = True>,
+// IsLessOrEqual constraints were removed as bounding const generics is not possible
+impl<const FRAC: i32> CordicNumber for FixedI64<FRAC>
+    where 
+        If<{ (0 <= FRAC) & (FRAC <= 64) }>: True,
+        If<{ (0 <= FRAC) & (FRAC <= 62) }>: True,
+        If<{ (0 <= FRAC) & (FRAC <= 61) }>: True
 {
     #[inline(always)]
     fn floor(self) -> Self {
@@ -247,7 +239,7 @@ where
 
     #[inline(always)]
     fn num_fract_bits() -> u8 {
-        Fract::to_u8()
+        FRAC as u8
     }
 
     #[inline(always)]

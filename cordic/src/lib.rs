@@ -1,6 +1,7 @@
 //! Implementations of special functions based on the CORDIC algorithm.
 
 #![no_std]
+#![feature(generic_const_exprs)]
 
 // Used to make the tests build and run.
 #[cfg(test)]
