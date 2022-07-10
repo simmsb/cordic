@@ -142,7 +142,6 @@ impl<const FRAC: i32> CordicNumber for FixedI32<FRAC>
     }
 }
 
-// IsLessOrEqual constraints were removed as bounding const generics is not possible
 impl<const FRAC: i32> CordicNumber for FixedI16<FRAC>
     where 
         If<{ (0 <= FRAC) & (FRAC <= 16) }>: True,
@@ -195,7 +194,6 @@ impl<const FRAC: i32> CordicNumber for FixedI16<FRAC>
     }
 }
 
-// IsLessOrEqual constraints were removed as bounding const generics is not possible
 impl<const FRAC: i32> CordicNumber for FixedI64<FRAC>
     where 
         If<{ (0 <= FRAC) & (FRAC <= 64) }>: True,
