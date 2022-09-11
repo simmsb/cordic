@@ -1,7 +1,7 @@
-use fixed::types::extra::{ If, True };
+use core::ops::{Add, AddAssign, Div, Mul, Neg, Shl, Shr, Sub, SubAssign};
+use fixed::types::extra::{If, True};
 use fixed::types::U0F64;
 use fixed::{FixedI16, FixedI32, FixedI64, FixedI8};
-use core::ops::{Add, AddAssign, Div, Mul, Neg, Shl, Shr, Sub, SubAssign};
 
 /// A number that can be used by the CORDIC-based algorithms.
 ///
@@ -39,10 +39,10 @@ pub trait CordicNumber:
 // - The FRAC_PI_2 constant.
 // - The PI constant.
 impl<const FRAC: i32> CordicNumber for FixedI8<FRAC>
-    where 
-        If<{ (0 <= FRAC) & (FRAC <= 8) }>: True,
-        If<{ (0 <= FRAC) & (FRAC <= 6) }>: True,
-        If<{ (0 <= FRAC) & (FRAC <= 5) }>: True
+where
+    If<{ (0 <= FRAC) & (FRAC <= 8) }>: True,
+    If<{ (0 <= FRAC) & (FRAC <= 6) }>: True,
+    If<{ (0 <= FRAC) & (FRAC <= 5) }>: True,
 {
     #[inline(always)]
     fn floor(self) -> Self {
@@ -61,17 +61,17 @@ impl<const FRAC: i32> CordicNumber for FixedI8<FRAC>
 
     #[inline(always)]
     fn frac_pi_2() -> Self {
-        Self::FRAC_PI_2
+        Self::from_num(fixed::consts::FRAC_2_PI)
     }
 
     #[inline(always)]
     fn pi() -> Self {
-        Self::PI
+        Self::from_num(fixed::consts::PI)
     }
 
     #[inline(always)]
     fn e() -> Self {
-        Self::E
+        Self::from_num(fixed::consts::E)
     }
 
     #[inline(always)]
@@ -91,10 +91,10 @@ impl<const FRAC: i32> CordicNumber for FixedI8<FRAC>
 }
 
 impl<const FRAC: i32> CordicNumber for FixedI32<FRAC>
-    where 
-        If<{ (0 <= FRAC) & (FRAC <= 32) }>: True,
-        If<{ (0 <= FRAC) & (FRAC <= 30) }>: True,
-        If<{ (0 <= FRAC) & (FRAC <= 29) }>: True
+where
+    If<{ (0 <= FRAC) & (FRAC <= 32) }>: True,
+    If<{ (0 <= FRAC) & (FRAC <= 30) }>: True,
+    If<{ (0 <= FRAC) & (FRAC <= 29) }>: True,
 {
     #[inline(always)]
     fn floor(self) -> Self {
@@ -113,17 +113,17 @@ impl<const FRAC: i32> CordicNumber for FixedI32<FRAC>
 
     #[inline(always)]
     fn frac_pi_2() -> Self {
-        Self::FRAC_PI_2
+        Self::from_num(fixed::consts::FRAC_PI_2)
     }
 
     #[inline(always)]
     fn pi() -> Self {
-        Self::PI
+        Self::from_num(fixed::consts::PI)
     }
 
     #[inline(always)]
     fn e() -> Self {
-        Self::E
+        Self::from_num(fixed::consts::E)
     }
 
     #[inline(always)]
@@ -143,10 +143,10 @@ impl<const FRAC: i32> CordicNumber for FixedI32<FRAC>
 }
 
 impl<const FRAC: i32> CordicNumber for FixedI16<FRAC>
-    where 
-        If<{ (0 <= FRAC) & (FRAC <= 16) }>: True,
-        If<{ (0 <= FRAC) & (FRAC <= 14) }>: True,
-        If<{ (0 <= FRAC) & (FRAC <= 13) }>: True
+where
+    If<{ (0 <= FRAC) & (FRAC <= 16) }>: True,
+    If<{ (0 <= FRAC) & (FRAC <= 14) }>: True,
+    If<{ (0 <= FRAC) & (FRAC <= 13) }>: True,
 {
     #[inline(always)]
     fn floor(self) -> Self {
@@ -165,17 +165,17 @@ impl<const FRAC: i32> CordicNumber for FixedI16<FRAC>
 
     #[inline(always)]
     fn frac_pi_2() -> Self {
-        Self::FRAC_PI_2
+        Self::from_num(fixed::consts::FRAC_PI_2)
     }
 
     #[inline(always)]
     fn pi() -> Self {
-        Self::PI
+        Self::from_num(fixed::consts::PI)
     }
 
     #[inline(always)]
     fn e() -> Self {
-        Self::E
+        Self::from_num(fixed::consts::E)
     }
 
     #[inline(always)]
@@ -195,10 +195,10 @@ impl<const FRAC: i32> CordicNumber for FixedI16<FRAC>
 }
 
 impl<const FRAC: i32> CordicNumber for FixedI64<FRAC>
-    where 
-        If<{ (0 <= FRAC) & (FRAC <= 64) }>: True,
-        If<{ (0 <= FRAC) & (FRAC <= 62) }>: True,
-        If<{ (0 <= FRAC) & (FRAC <= 61) }>: True
+where
+    If<{ (0 <= FRAC) & (FRAC <= 64) }>: True,
+    If<{ (0 <= FRAC) & (FRAC <= 62) }>: True,
+    If<{ (0 <= FRAC) & (FRAC <= 61) }>: True,
 {
     #[inline(always)]
     fn floor(self) -> Self {
@@ -217,17 +217,17 @@ impl<const FRAC: i32> CordicNumber for FixedI64<FRAC>
 
     #[inline(always)]
     fn frac_pi_2() -> Self {
-        Self::FRAC_PI_2
+        Self::from_num(fixed::consts::FRAC_PI_2)
     }
 
     #[inline(always)]
     fn pi() -> Self {
-        Self::PI
+        Self::from_num(fixed::consts::PI)
     }
 
     #[inline(always)]
     fn e() -> Self {
-        Self::E
+        Self::from_num(fixed::consts::E)
     }
 
     #[inline(always)]
